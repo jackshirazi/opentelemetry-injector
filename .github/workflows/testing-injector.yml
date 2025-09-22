@@ -66,5 +66,5 @@ jobs:
 
     - name: Make agents global
       run: |
-          echo $PWD/so/libotelinject.so >> /etc/ld.so.preload
+          sudo sh -c "echo $PWD/so/libotelinject.so >> /etc/ld.so.preload"
           cat /etc/ld.so.preload
