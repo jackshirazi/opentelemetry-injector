@@ -26,7 +26,4 @@ jobs:
           echo $PWD/zig-x86_64-linux-$ZIG_VERSION  >> $GITHUB_PATH
 
     - name: Run make zig
-      run: |
-          echo $PATH
-          zig version
-          make zig-build
+      run: make zig-build
