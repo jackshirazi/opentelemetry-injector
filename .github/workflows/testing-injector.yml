@@ -19,8 +19,10 @@ jobs:
 
     - name: Test no agent
       run: |
+          cat jack-test/app.js
           node jack-test/app.js &
           sleep 2
+          cat jack-test/JavaHello.java
           java jack-test/JavaHello.java
           kill %1
 
@@ -61,7 +63,7 @@ jobs:
     - name: Test no agent again
       run: |
           node jack-test/app.js &
-          sleep 2
+          sleep 5
           java jack-test/JavaHello.java
           kill %1
 
@@ -76,7 +78,7 @@ jobs:
           export OTEL_LOG_LEVEL=debug
           #
           node jack-test/app.js &
-          sleep 2
+          sleep 5
           java jack-test/JavaHello.java
           kill %1
 
