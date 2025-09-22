@@ -27,4 +27,7 @@ jobs:
           zig version
 
     - name: Run make zig
-      run: make zig-build
+      run: |
+          echo $PATH
+          zig version
+          make zig-build
