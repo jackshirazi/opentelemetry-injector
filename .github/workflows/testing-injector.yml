@@ -33,3 +33,11 @@ jobs:
     - name: Run make zig
       run: make zig-build
 
+    - name: Test with agent using LD_PRELOAD
+      run: |
+          export OTEL_LOG_LEVEL=debug
+          export LD_PRELOAD=so/libotelinject.so
+          node jack-test/app.js &
+          sleep 2
+          java jack-test/JavaHello.java
+
