@@ -1,0 +1,27 @@
+name: Test injector
+
+on:
+  workflow_dispatch:
+
+env:
+  AGENT_TESTS: python nodejs java
+  #go dotnet --- both pending
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Zig
+      run: |
+          ZIG_VERSION=$(cat zig-version)
+          echo "ZIG: $ZIG_VERSION"
+
+    - name: Run make zig
+      run: make zig-build
