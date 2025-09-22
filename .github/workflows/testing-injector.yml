@@ -49,11 +49,22 @@ jobs:
 
     - name: Test with agent using LD_PRELOAD
       run: |
-          #setup
+          # Add debug log level so the node agent prints something at startup
           export OTEL_LOG_LEVEL=debug
           #
-          export LD_PRELOAD=so/libotelinject.so
+          export LD_PRELOAD=$PWD/so/libotelinject.so
           node jack-test/app.js &
           sleep 2
           java jack-test/JavaHello.java
 
+    - name: Test no agent again
+      run: |
+          node jack-test/app.js &
+          sleep 2
+          java jack-test/JavaHello.java
+          kill %1
+
+    - name: Make agents global
+      run: |
+          echo $PWD/so/libotelinject.so >> /etc/ld.so.preload
+          cat /etc/ld.so.preload
