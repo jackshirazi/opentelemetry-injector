@@ -21,7 +21,7 @@ jobs:
     - name: Install Zig
       run: |
           ZIG_VERSION=$(cat zig-version)
-          echo $ZIG_VERSION
+          echo "ZIG: $ZIG_VERSION"
 
     - name: Run make zig
       run: make zig-build
