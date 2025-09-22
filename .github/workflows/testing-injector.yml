@@ -20,8 +20,11 @@ jobs:
 
     - name: Install Zig
       run: |
-          ZIG_VERSION=$(cat zig-version)
-          echo "ZIG: $ZIG_VERSION"
+          ZIG_VERSION=$(cat zig-version | grep -v '^#' | sed 's/ZIG_VERSION=//; s/-r0//')
+          echo "Install zig version $ZIG_VERSION"
+          curl -L https://ziglang.org/download/$ZIG_VERSION/zig-x86_64-linux-$ZIG_VERSION.tar.xz | tar -xJf -
+          export PATH=./zig-x86_64-linux-$ZIG_VERSION:$PATH
+          zig version
 
     - name: Run make zig
       run: make zig-build
