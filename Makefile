@@ -75,7 +75,7 @@ check-zig-installed:
 .PHONY: zig-build
 zig-build: check-zig-installed
 	@mkdir -p so
-	@(zig build --prominent-compile-errors --summary none && echo $(shell date) build successful) || (echo $(shell date) build failed && exit 1)
+	@(zig build -Dcpu-arch=${ARCH} --prominent-compile-errors --summary none && echo $(shell date) build successful) || (echo $(shell date) build failed && exit 1)
 
 .PHONY: watch-zig-build
 watch-zig-build: check-zig-installed
