@@ -18,6 +18,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Test no agent
+      run: |
+          java --version
+          java jack-test/JavaHello.java
+
     - name: Install Zig
       run: |
           ZIG_VERSION=$(cat zig-version | grep -v '^#' | sed 's/ZIG_VERSION=//; s/-r0//')
@@ -27,3 +32,4 @@ jobs:
 
     - name: Run make zig
       run: make zig-build
+
