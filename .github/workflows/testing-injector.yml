@@ -22,6 +22,7 @@ jobs:
           node jack-test/app.js &
           sleep 2
           java jack-test/JavaHello.java
+          kill %1
 
     - name: Install Zig
       run: |
@@ -43,7 +44,7 @@ jobs:
           NODE_PATH=$PWD/nodeinstrumentation
           sudo mkdir -p /etc/opentelemetry
           echo "jvm_auto_instrumentation_agent_path=$JAVA_PATH" > otelinject.conf
-          echo "nodejs_auto_instrumentation_agent_path=$NODE_PATH/@autoinstrumentation-js/otel/instrument" >> otelinject.conf
+          echo "nodejs_auto_instrumentation_agent_path=$NODE_PATH/@autoinstrumentation/otel/instrument" >> otelinject.conf
           sudo mv otelinject.conf /etc/opentelemetry
 
     - name: Test with agent using LD_PRELOAD
