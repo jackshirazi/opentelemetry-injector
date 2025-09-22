@@ -56,6 +56,7 @@ jobs:
           node jack-test/app.js &
           sleep 2
           java jack-test/JavaHello.java
+          kill %1
 
     - name: Test no agent again
       run: |
@@ -68,3 +69,14 @@ jobs:
       run: |
           sudo sh -c "echo $PWD/so/libotelinject.so >> /etc/ld.so.preload"
           cat /etc/ld.so.preload
+
+    - name: Test with agent using NOTHING
+      run: |
+          # Add debug log level so the node agent prints something at startup
+          export OTEL_LOG_LEVEL=debug
+          #
+          node jack-test/app.js &
+          sleep 2
+          java jack-test/JavaHello.java
+          kill %1
+
