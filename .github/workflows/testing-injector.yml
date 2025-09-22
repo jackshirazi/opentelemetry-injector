@@ -24,7 +24,6 @@ jobs:
           echo "Install zig version $ZIG_VERSION"
           curl -L https://ziglang.org/download/$ZIG_VERSION/zig-x86_64-linux-$ZIG_VERSION.tar.xz | tar -xJf -
           echo $PWD/zig-x86_64-linux-$ZIG_VERSION  >> $GITHUB_PATH
-          zig version
 
     - name: Run make zig
       run: |
