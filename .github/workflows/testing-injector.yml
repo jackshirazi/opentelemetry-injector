@@ -33,9 +33,24 @@ jobs:
     - name: Run make zig
       run: make zig-build
 
+    - name: Install agents on the box
+      run: |
+          curl -O https://repo1.maven.org/maven2/co/elastic/otel/elastic-otel-javaagent/1.5.0/elastic-otel-javaagent-1.5.0.jar
+          JAVA_PATH=$PWD/elastic-otel-javaagent-1.5.0.jar
+          docker create --name temp-container docker.elastic.co/observability/elastic-otel-node:latest
+          docker cp temp-container:/autoinstrumentation ./nodeinstrumentation
+          docker rm temp-container
+          NODE_PATH=$PWD/nodeinstrumentation
+          sudo mkdir -p /etc/opentelemetry
+          echo "jvm_auto_instrumentation_agent_path=$JAVA_PATH" > otelinject.conf
+          echo "nodejs_auto_instrumentation_agent_path=$NODE_PATH" >> otelinject.conf
+          sudo mv otelinject.conf /etc/opentelemetry
+
     - name: Test with agent using LD_PRELOAD
       run: |
+          #setup
           export OTEL_LOG_LEVEL=debug
+          #
           export LD_PRELOAD=so/libotelinject.so
           node jack-test/app.js &
           sleep 2
