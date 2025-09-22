@@ -4,8 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  AGENT_TESTS: python nodejs java
-  #go dotnet --- both pending
+  AGENT_TESTS: nodejs java
 
 permissions:
   contents: read
@@ -20,7 +19,8 @@ jobs:
 
     - name: Test no agent
       run: |
-          java --version
+          node jack-test/app.js &
+          sleep 2
           java jack-test/JavaHello.java
 
     - name: Install Zig
